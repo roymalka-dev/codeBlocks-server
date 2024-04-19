@@ -11,17 +11,14 @@ export const blockControllers = {
       }
 
       return res.status(200).json({ block });
-    } catch (err) {}
+    } catch (err) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
   },
   updateBlock: async (req: Request, res: Response) => {
     try {
       const { code } = req.body;
       const id = req.params.id;
-
-      //console.log("Data received to update controller:", req.body, code);
-
-      console.log("Data received to update controller:", id, code);
-
       await dbServices.updateBlock(id, code);
       return res.status(200).json({ message: "Block updated" });
     } catch (err) {
